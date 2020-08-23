@@ -84,7 +84,7 @@ for index, row in unique.iterrows():
             continue
 
         res = result[0]["formatted_address"]
-        dist_volta = gmaps.distance_matrix("Tel Aviv", res)
+        dist_tlv = gmaps.distance_matrix("Tel Aviv", res)
         elements = (dist_tlv.get('rows')[0]).get('elements')[0]
         distance = elements.get('distance').get('value')
         if(distance < min_distance_tlv):
@@ -104,7 +104,7 @@ addresses.remove(min_address)
 
 ###########################################################################
 
-# Find the optimized route using google-maps, from the max point to the min point (finish closest to volta hq)
+# Find the optimized route using google-maps, from the max point to the min point (finish closest to tel aviv)
 print("Finding final route..")
 optimized_route = gmaps.directions(
     max_address, min_address, waypoints=addresses, optimize_waypoints=True)[0]["waypoint_order"]
