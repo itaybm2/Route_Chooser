@@ -36,9 +36,9 @@ unique = pd.read_csv('./unique_addresses.csv', sep=',', index_col=0)
 addresses = []
 
 #Locate the nearest and furthest waypoints to TLV for optimization #
-min_distance_volta = float("inf")
+min_distance_tlv= float("inf")
 min_address = ""
-max_distance_volta = float("-inf")
+max_distance_tlv = float("-inf")
 max_address = ""
 
 print("Gathering addresses..")
@@ -60,16 +60,16 @@ for index, row in unique.iterrows():
             continue
             
         address = geocode["formatted_address"]
-        dist_volta = gmaps.distance_matrix("Tel Aviv", address)
-        elements = (dist_volta.get('rows')[0]).get('elements')[0]
+        dist_tlv = gmaps.distance_matrix("Tel Aviv", address)
+        elements = (dist_tlv.get('rows')[0]).get('elements')[0]
         distance = elements.get('distance').get('value')
 
-        if(distance < min_distance_volta):
-            min_distance_volta = distance
+        if(distance < min_distance_tlv):
+            min_distance_tlv = distance
             min_address = geocode["formatted_address"]
 
-        if(distance > max_distance_volta):
-            max_distance_volta = distance
+        if(distance > max_distance_tlv):
+            max_distance_tlv = distance
             max_address = geocode["formatted_address"]
 
         res = address
@@ -85,14 +85,14 @@ for index, row in unique.iterrows():
 
         res = result[0]["formatted_address"]
         dist_volta = gmaps.distance_matrix("Tel Aviv", res)
-        elements = (dist_volta.get('rows')[0]).get('elements')[0]
+        elements = (dist_tlv.get('rows')[0]).get('elements')[0]
         distance = elements.get('distance').get('value')
-        if(distance < min_distance_volta):
-            min_distance_volta = distance
+        if(distance < min_distance_tlv):
+            min_distance_tlv = distance
             min_address = res
 
-        if(distance > max_distance_volta):
-            max_distance_volta = distance
+        if(distance > max_distance_tlv):
+            max_distance_tlv = distance
             max_address = res
 
     addresses.append(res)
